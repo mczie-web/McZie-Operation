@@ -1,10 +1,8 @@
 import { FastifyInstance } from 'fastify';
-import { PrismaClient } from '@prisma/client';
+import { AuditRepository } from '../audit/repository.js';
 import { log } from '../core/logger.js';
 
-const prisma = new PrismaClient();
-
-export const registerEventsRoute = async (app: FastifyInstance) => {
+export const registerEventsRoute = async (app: FastifyInstance, repository: AuditRepository) => {
   app.post('/events', async (request, reply) => {
     const traceId = request.id;
     const body = request.body as {
@@ -21,13 +19,11 @@ export const registerEventsRoute = async (app: FastifyInstance) => {
       });
     }
 
-    const event = await prisma.executionEvent.create({
-      data: {
-        type: body.type,
-        status: body.status,
-        payload: (body.payload as object | undefined) ?? undefined,
-        traceId: body.traceId ?? traceId,
-      },
+    const event = await repository.createExecutionEvent({
+      type: body.type,
+      status: body.status,
+      payload: (body.payload as object | undefined) ?? undefined,
+      traceId: body.traceId ?? traceId,
     });
 
     log('info', 'execution_event_created', {
