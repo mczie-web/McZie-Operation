@@ -13,15 +13,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate markdown files exist
-        run: |
-          test -f README.md
-          test -f docs/ROADMAP.md
-          test -f docs/ARCHITECTURE.md
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-      - name: Basic repository tree
-        run: |
-          ls -la
-          ls -la docs
-          ls -la src
-          ls -la tests
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
