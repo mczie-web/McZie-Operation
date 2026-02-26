@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts --max-warnings=0",
+    "lint": "eslint . --max-warnings=0",
     "test": "vitest run",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -20,16 +20,16 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@prisma/client": "^7.4.1",
+    "@prisma/client": "^6.16.2",
     "fastify": "^5.7.4"
   },
   "devDependencies": {
     "@types/node": "^25.3.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
-    "eslint": "^10.0.2",
+    "eslint": "^8.57.1",
     "prettier": "^3.8.1",
-    "prisma": "^7.4.1",
+    "prisma": "^6.16.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
